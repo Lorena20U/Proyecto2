@@ -1,9 +1,6 @@
-#include <ESP8266WiFi.h>
-#include <WiFiClient.h>
-#include <ESP8266WebServer.h>
+#include "htmlproyectoED.h"
 #include "BinarySearchTree.h"
 #include "Circular_Linkedlist.h"
-ESP8266WebServer server(80);
 const char* ssid = "TIGO-D55E";
 const char* password = "2NB123207539";
 struct tropa{
@@ -26,71 +23,34 @@ String jugadorB = "";
 String jugador_n = "";
 int guerrero = 0;
 int opciones = 0;
-void registro() {
- String s = "<!DOCTYPE html><html><body><h2>WARLAND</h2>";//Read HTML contents
- s += "<h3>Registro de jugadores</h3>";
- s += "<form action='/inicio'>";
- s +=  "Jugador A:<br>";
- s += "<input type='text' name='jugadorA' value='Pablo'>";
- s += "<br>";
- s += "Jugador B:<br>";
- s +="<input type='text' name='jugadorB' value='Lorena'>";
- s += "<br><br>";
- s += "<input type='submit' value='Submit'>";
- s +="</form> </body></html>";
- server.send(200, "text/html", s);} //Send web page
+void registro() {string1();} //Send web page
 void inicio() {
 jugadorA = server.arg("jugadorA"); 
 jugadorB = server.arg("jugadorB"); 
-String s = "<a href='/partida'> Comenzar </a>";
-server.send(200, "text/html", s);}
+imagenboton();
+}
 void partida(){
   int cnt = 0;
-  String s = "";
 if (turno == true){jugador_n = jugadorA;}
 else{jugador_n = jugadorB;}
 preorderTraversal(treeA, "A",false,true);
 preorderTraversal(treeB, "B",false,true);
-s = "<h1> " + jugador_n + " </h1>";
-s += "<h2> Elija una opcion </h2>";
-s += "<p> 1. Crear 2 tropas <br/>";
-s += "2. Moverme <br/>";
-s += "3. Colocar trampa <br/>";
-s += "4. Rueda de la suerte <br/></p>";
-s += "<form action='/Opciones'>";
-s += "<input type='text' name='Opcion' value='0'>";
-s += "<input type='submit' value='Submit'></form>";
 turno = !turno;
-server.send(200, "text/html", s);}
+imagen(jugador_n);}
 void decisiones(){
   int f = 0;
   int t = 0;
  opciones = server.arg("Opcion").toInt();
+ opcion1_o();
   if (opciones == 1){
-    pagina = "";
-    pagina = "<h1> Crear unidades </h1>";
-    pagina += "<h2> Elija una posicion donde colocarla </h2>";
-    pagina += "<p> ";
     if(jugador_n == jugadorA){preorderTraversal(treeA, "A",true,false);}
     else {preorderTraversal(treeB, "B",true,false);}
     for (int go=0;go<guerrero;go++){
     if((tropas[go].tipo != "muerto") && (tropas[go].jugador == jugador_n)){strip.setPixelColor(tropas[go].posicion,0,255,0);}}
     strip.show();
-    pagina += "</p>";
-    pagina += "<form action='/cambios'>";
-    pagina += "<br>";
-     pagina +=  "Posicion unidad 1:<br>";
- pagina += "<input type='text' name='Unidad1' value='0'>";
- pagina += "<br>";
- pagina += "Posicion unidad 2:<br>";
- pagina +="<input type='text' name='Unidad2' value='0'>";
- pagina += "<br><br>";
- pagina += "<input type='submit' value='Submit'></form>";
- server.send(200, "text/html", pagina);}
+    opcion1_t();}
   else if(opciones == 2){
-    String s = "<h1> Moverse </h1>";
-    s += "<h2> Elija una unidad para moverse </h2>";
-    s += "<p>";
+opcion2_o();
     for(t=0;t<guerrero;t++){
       if((tropas[t].jugador == jugador_n) && (tropas[t].tipo != "muerto")){
         s += "ID: " + String(tropas[t].id) + " Tropa: " + tropas[t].tipo + " Posicion -> " + String(tropas[t].posicion) + "  Nivel: " + String(tropas[t].nivel) +  "<br>";}}
@@ -98,122 +58,53 @@ void decisiones(){
       if((tropas[gb].tipo != "muerto") && (tropas[gb].jugador == jugador_n)){
       strip.setPixelColor(tropas[gb].posicion,0,255,0);}}
     strip.show();
-  s += "</p>";
-  s += "<form action='/cambios'>";
-  s += "<br>";
-  s += "Unidad a seleccionar (mediante #ID)<br>";
-  s += "<input type='text' name='tropamoverse' value='0'>";
-  s += "<br>";
-  s += "Moverse hacia<br>";
-  s += "1. Arriba<br>";
-  s += "2. Abajo<br>";
-  s += "3. Izquierda<br>";
-  s += "4. Derecho<br>";
-  s += "Si la unidad es voladora inserte una posicion<br>";
-  s +="<input type='text' name='donde' value='0'>";
-  s += "<br><br>";
-  s += "<input type='submit' value='Submit'></form>";
-  server.send(200, "text/html", s);}
+    opcion2_t();}
   else if(opciones == 3){
-    pagina = "";
-    pagina = "<h1> Trampas </h1>";
-    pagina += "<h2> Elija una posicion donde colocar trampa </h2>";
-    pagina += "<p>";
-    pagina += "Posicion: ";
+    opcion3_o();
       if(jugador_n == jugadorA){preorderTraversal(treeA, "A",true,false);}
       else{preorderTraversal(treeB, "B",true,false);}
-      pagina += "</p>";
-  pagina += "<form action='/cambios'>";
-  pagina += "<br>";
-  pagina += "Posicion a colocar<br>";
-  pagina += "<input type='text' name='posicionbomba' value='0'>";
-  pagina += "<br><br>";
-  pagina += "<input type='submit' value='Submit'></form>";
-  server.send(200, "text/html", pagina);}
+ opcion3_t();}
   else if(opciones == 4){
     empezar = neopixelring(empezar);
-    String s = "<h1> Opciones </h1>";
+    opcion4_o();
   if(ctn == 1){
-    s += "<h2> Elimina una trampa y puedes ver posiciones de bombas </h2>";
-    s += "<p>";
-    s += "Posicion: ";
+    opcion4_t1();
     for(f=0;f<cantbombas;f++){
       if((bombas[f].jugador != jugador_n) && (bombas[f].posicion != -1)){
         s += "ID: " + String(bombas[f].id) + " Posicion -> " + String(bombas[f].posicion) + "<br>";
         strip.setPixelColor(bombas[f].posicion,255,128,0);}}
     strip.show();
-  s += "</p>";
-  s += "<form action='/cambios'>";
-  s += "<br>";
-  s += "Posicion a eliminar bomba (Mediante ID)<br>";
-  s += "<input type='text' name='eliminarbomba' value='0'>";
-  s += "<br><br>";
-  s += "<input type='submit' value='Submit'></form>";
-  server.send(200, "text/html", s);}
+opcion4_t1();}
   else if(ctn == 2){
-    pagina = "";
-    pagina = "<h2> Crear una unidad voladora </h2>";
+opcion4_o2();
             for (f=0;f<guerrero;f++){
       if((tropas[f].tipo != "muerto") && (tropas[f].jugador == jugador_n)){
       strip.setPixelColor(tropas[f].posicion,0,255,0);}}
-    pagina += "<h3> Elige donde colocarla </h3>";
-    pagina += "<p> ";
     strip.show();
     if(jugador_n == jugadorA){preorderTraversal(treeA, "A",true,false);}
     else{preorderTraversal(treeB, "B",true,false);}
-   pagina += "</p>";
-   pagina += "<form action='/cambios'>";
-   pagina += "<br>";
-  pagina +=  "Posicion unidad:<br>";
-   pagina += "<input type='text' name='volador1' value='0'>";
-   pagina += "<br><br>";
-   pagina += "<input type='submit' value='Submit'></form>";
-    server.send(200, "text/html", pagina);}
+   opcion4_t2();}
     else if(ctn == 3){
-      pagina = "";
-      pagina = "<h2> Debes regalar 1 posicion al rival</h2>";
+      opcion4_o3();
             for (f=0;f<guerrero;f++){
       if((tropas[f].tipo != "muerto") && (tropas[f].jugador == jugador_n)){
       strip.setPixelColor(tropas[f].posicion,0,255,0);}}
       strip.show();
-      pagina += "<h3>Elige la posicion, si insertas una invalida se regalara 1 igualmente</h3>";
-    pagina += "<p> ";
       if(jugador_n == jugadorA){preorderTraversal(treeA, "A",true,false);}
       else{preorderTraversal(treeB, "B",true,false);}
-   pagina += "</p>";
-   pagina += "<form action='/cambios'>";
-   pagina += "<br>";
-   pagina +=  "Posicion regalada:<br>";
-   pagina += "<input type='text' name='posicionregalada' value='0'>";
-   pagina += "<br><br>";
-   pagina += "<input type='submit' value='Submit'></form>";  
-    server.send(200, "text/html", pagina);}
+opcion4_t3();}
     else if(ctn == 4){
             for (f=0;f<guerrero;f++){
       if((tropas[f].tipo != "muerto") && (tropas[f].jugador == jugador_n)){
       strip.setPixelColor(tropas[f].posicion,0,255,0);}}
-    String s = "<h2> Aumentar un nivel a dos unidades </h2>";
-    s += "<h3> Elija dos unidades en base a su id </h3>";
-    s += "<p> ";
+opcion4_o4();
     for(f=0;f<guerrero;f++){
       if((tropas[f].jugador == jugador_n) && (tropas[f].tipo != "muerto")){
         s += "ID: " + String(tropas[f].id) + " Tropa: " + tropas[f].tipo + " Posicion -> " + String(tropas[f].posicion) + "  Nivel: " + String(tropas[f].nivel) +  "<br>";}}
     strip.show();
-    s += "</p>";
-    s += "<form action='/cambios'>";
-    s += "<br>";
-     s +=  "Unidad 1 (ID):<br>";
- s += "<input type='text' name='Unidad1id' value='0'>";
- s += "<br>";
- s += "Unidad 2 (ID):<br>";
- s +="<input type='text' name='Unidad2id' value='0'>";
- s += "<br><br>";
- s += "<input type='submit' value='Submit'></form>";
- server.send(200, "text/html", s);}
+opcion4_t4();}
     else if(ctn == 5){
-          String s = "<h2> Mueves una unidad a una posicion cualquiera </h2>";
-    s += "<h3> Elija una unidad para moverla </h3>";
-    s += "<p> ";
+    opcion4_o5();
             for (f=0;f<guerrero;f++){
       if((tropas[f].tipo != "muerto") && (tropas[f].jugador == jugador_n)){
       strip.setPixelColor(tropas[f].posicion,0,255,0);}}
@@ -221,21 +112,9 @@ void decisiones(){
       if((tropas[f].jugador == jugador_n) && (tropas[f].tipo != "muerto")){
         s += "ID: " + String(tropas[f].id) + " Tropa: " + tropas[f].tipo + " Posicion -> " + String(tropas[f].posicion) + "  Nivel: " + String(tropas[f].nivel) +  "<br>";}}
     strip.show();
-    s += "</p>";
-    s += "<form action='/cambios'>";
-    s += "<br>";
-     s +=  "Unidad (ID):<br>";
- s += "<input type='text' name='Unidad1elegida' value='0'>";
- s += "<br>";
-  s += "Posicion (Entre 0 a 63)<br>";
- s +="<input type='text' name='Unidadlibrepos' value='0'>";
- s += "<br><br>";
- s += "<input type='submit' value='Submit'></form>";
-  server.send(200, "text/html", s);}
-    else if(ctn == 6){  
-          String s = "<h2> Pierdes una unidad </h2>";
-    s += "<h3> Elige una unidad (ID): </h3>";
-    s += "<p> ";
+opcion4_t5();}
+    else if(ctn == 6){
+opcion4_o6();
             for (f=0;f<guerrero;f++){
       if((tropas[f].tipo != "muerto") && (tropas[f].jugador == jugador_n)){
       strip.setPixelColor(tropas[f].posicion,0,255,0);}}
@@ -243,15 +122,7 @@ void decisiones(){
       if((tropas[f].jugador == jugador_n) && (tropas[f].tipo != "muerto")){
         s += "ID: " + String(tropas[f].id) + " Tropa: " + tropas[f].tipo + " Posicion -> " + String(tropas[f].posicion) + "  Nivel: " + String(tropas[f].nivel) +  "<br>";}}
             strip.show();
-         s += "</p>";
-    s += "<form action='/cambios'>";
-    s += "<br>";
-     s +=  "Unidad (ID):<br>";
- s += "<input type='text' name='Unidadperdida' value='0'>";
- s += "<br>"; 
-  s += "<br><br>";
- s += "<input type='submit' value='Submit'></form>";
-  server.send(200, "text/html", s);}}}
+opcion4_t6();}}}
 void cambio() {
   if (opciones == 1){
     int u1 = server.arg("Unidad1").toInt();
@@ -295,51 +166,50 @@ void cambio() {
       strip.setPixelColor(tropas[guerrero].posicion,0,255,0);
       guerrero++;}}
     strip.show();
-    String s = "<a href='/partida'> Continuar </a>";
- server.send(200, "text/html", s);} //Send web page  
+   opcion1_of();} //Send web page  
   else if(opciones == 2){
     int unidad = server.arg("tropamoverse").toInt();
     int pos = server.arg("donde").toInt();
-    String s = "";
+    imagen2();
     bool iterar = false;
     bool borrar = true;
-    if (guerrero == 0 || unidad >= guerrero){s += "<a href='/partida'> Tropa invalida </a>";}
-    else if ((tropas[unidad].jugador != jugador_n) || (tropas[unidad].tipo == "muerto")){s += "<a href='/partida'> Tropa invalida </a>";}
+    if (guerrero == 0 || unidad >= guerrero){incorrecto();}
+    else if ((tropas[unidad].jugador != jugador_n) || (tropas[unidad].tipo == "muerto")){incorrecto();;}
     else{
       strip.setPixelColor(tropas[unidad].posicion,0,0,0);
       if((tropas[unidad].tipo == "volador") && (pos >= 0) && (pos <= 63)){
       tropas[unidad].posicion = pos;
-      s += "<a href='/partida'> Tropa movida correctamente </a>";
+      correcto();
       iterar = true;}
     else if (pos==1){
-      if(tropas[unidad].posicion > 55){s += "<a href='/partida'> Tropa invalida </a>";}
+      if(tropas[unidad].posicion > 55){incorrecto();}
       else{
       tropas[unidad].posicion += 8;
-      s += "<a href='/partida'> Tropa movida correctamente </a>";
+      correcto();
       iterar = true;}}
     else if(pos==2){
-      if(tropas[unidad].posicion < 8){s += "<a href='/partida'> Tropa invalida </a>";}
+      if(tropas[unidad].posicion < 8){incorrecto();}
     else{
       tropas[unidad].posicion -= 8;
-      s += "<a href='/partida'> Tropa movida correctamente </a>";
+      correcto();
       iterar = true;}}
     else if(pos==3){
-      if(tropas[unidad].posicion == 0){s += "<a href='/partida'> Tropa invalida </a>";}
+      if(tropas[unidad].posicion == 0){incorrecto();}
       else{
         tropas[unidad].posicion -= 1;
-        s += "<a href='/partida'> Tropa movida correctamente </a>";
+        correcto();
         iterar = true;}}
     else if(pos==4){
-      if(tropas[unidad].posicion == 63){s += "<a href='/partida'> Tropa invalida </a>";}
+      if(tropas[unidad].posicion == 63){incorrecto();}
     else{
       tropas[unidad].posicion += 1;
-      s += "<a href='/partida'> Tropa movida correctamente </a>";
+      correcto();
       iterar = true;}}
-    else{s += "<a href='/partida'> Posicion invalida </a>";}
+    else{incorrecto();}
           if(cantbombas != 0){
         for(int iu=0;iu<cantbombas;iu++){
           if ((tropas[unidad].posicion == bombas[iu].posicion) && (bombas[iu].jugador != jugador_n) && (tropas[unidad].tipo == "terrestre")){
-            s += "<br><p> Tu unidad murio debido a que toco una bomba</p>";
+            bomba();
             bombas[iu].posicion = -1;
             bombas[iu].estado = "inactiva";
             tropas[unidad].posicion = -1;
@@ -367,7 +237,7 @@ void cambio() {
           treeB = insertElement(treeB, tropas[unidad].posicion);
           treeA = deleteElement(treeA, tropas[unidad].posicion);}}}}
   strip.show();
-  server.send(200, "text/html", s);} //Send web page 
+  font();} //Send web page 
 else if(opciones == 3){
   int bombasp = server.arg("posicionbomba").toInt();
   if(jugador_n == jugadorA){
@@ -386,20 +256,16 @@ else{
         bombas[cantbombas].jugador = jugador_n;
         bombas[cantbombas].estado = "activa";
         cantbombas++;}}
-String s = "<a href='/partida'> Continuar </a>";
-server.send(200, "text/html", s);} //Send web page 
+        opcion3_of();} //Send web page 
 else if(opciones == 4){
       int cm = 0;
   if(ctn == 1){
-    String s = "";
     int bombaeliminar = server.arg("eliminarbomba").toInt();
     if (cantbombas > 0 && bombaeliminar < cantbombas){
       if((bombas[bombaeliminar].jugador != jugador_n) && (bombas[bombaeliminar].posicion != -1)){
         bombas[bombaeliminar].posicion = -1;
-        bombas[bombaeliminar].estado = "inactiva";
-        s += "<p> Bomba eliminada</p><br> ";}}
-    s += "<a href='/partida'> Continuar </a>";
-    server.send(200, "text/html", s);} //Send web page
+        bombas[bombaeliminar].estado = "inactiva";}}
+    opcion4_of1();} //Send web page
     else if(ctn == 2){
     int colocarvolador = server.arg("volador1").toInt();
     bool colocar = true;
@@ -433,8 +299,7 @@ else if(opciones == 4){
       tropas[guerrero].id = guerrero;
       guerrero++;}}
     strip.show();
-    String s = "<a href='/partida'> Continuar </a>";
-    server.send(200, "text/html", s);}
+continuar();}
   else if(ctn == 3){
     int regalito = server.arg("posicionregalada").toInt();
     bool regalaruno = true;
@@ -463,8 +328,7 @@ else if(opciones == 4){
           treeB = deleteElement(treeB, (ptr->data));
           treeA = insertElement(treeA, (ptr->data));}}
     strip.show();
-    String s = "<a href='/partida'> Continuar </a>";
-    server.send(200, "text/html", s);}
+     continuar();}
    else if(ctn == 4){
     int asignarnivelprimero = server.arg("Unidad1id").toInt();
     int asignarnivelsegundo = server.arg("Unidad2id").toInt();
@@ -477,10 +341,9 @@ else if(opciones == 4){
       tropas[asignarnivelsegundo].nivel += 1;
       strip.setPixelColor(tropas[asignarnivelsegundo].posicion,0,255,0);}}
     strip.show();
-    String s = "<a href='/partida'> Continuar </a>";
-    server.send(200, "text/html", s);}
+     continuar();}
    else if(ctn == 5){
-    String s = "";
+    imagen2();
    int unielegir = server.arg("Unidad1elegida").toInt();
    int poslibreunidad = server.arg("Unidadlibrepos").toInt();
    bool campo = true;
@@ -489,7 +352,7 @@ else if(opciones == 4){
     if(cantbombas > 0){
               for(cm=0;cm<cantbombas;cm++){
           if ((tropas[unielegir].posicion == bombas[cm].posicion) && (bombas[cm].jugador != jugador_n) && (tropas[unielegir].tipo == "terrestre")){
-            s += "<br><p> Tu unidad murio debido a que toco una bomba</p>";
+            bomba();
             bombas[cm].posicion = -1;
             bombas[cm].estado = "inactiva";
             tropas[unielegir].posicion = -1;
@@ -508,10 +371,8 @@ else if(opciones == 4){
           strip.setPixelColor(poslibreunidad,255,0,0);
           treeA = insertElement(treeA, poslibreunidad);}}
    strip.show();}}
-    s += "<a href='/partida'> Continuar </a>";
-    server.send(200, "text/html", s);} //Send web page
+continuar2();} //Send web page
    else if(ctn == 6){
-    String s = "";
     int regalaruni = server.arg("Unidadperdida").toInt();
     if((regalaruni > guerrero) && (guerrero != 0)){
       for(cm=0;cm<guerrero;cm++){
@@ -524,8 +385,7 @@ else if(opciones == 4){
     tropas[regalaruni].posicion = -1;
     tropas[regalaruni].tipo = "muerto";}
    strip.show();
-    s += "<a href='/partida'> Continuar </a>";
-    server.send(200, "text/html", s);}}}
+    continuar();}}}
 void setup() {
 strip.begin();
 strip.show();

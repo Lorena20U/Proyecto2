@@ -12,7 +12,6 @@ int i = 0;
 int y = 0;
 struct node *treeA;
 struct node *treeB;
-String pagina = "";
 void create_tree(struct node *);
 struct node *insertElement(struct node *, int);
 struct node *deleteElement(struct node *, int);
