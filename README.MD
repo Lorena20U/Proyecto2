@@ -1,12 +1,14 @@
 # Proyecto 2 - WARLAND ARCADE
 ```
-Contenido: Risk-Juego de Conquista, Backgammon-Juego clasico
 
-Es una pagina de entrenimiento local, donde puedes elegir el juego que desee 
-sin necesidad de estar conectado a Internet. 
+Es una pagina de entrenimiento local, donde puedes elegir el juego que desee sin necesidad de estar conectado a Internet. 
+
 Las reglas son sencillas, ¡empieza a jugar!
 
 ```
+## Juegos...
+*   Risk-Juego de Conquista 
+*   Backgammon-Juego clasico ([Consultar reglas](https://www.ludoteka.com/clasika/backgammon-es.html))
 
 ## Autores
 * **Lorena Perez** - *Desarrollador* - (20200396)
@@ -19,4 +21,4 @@ Las reglas son sencillas, ¡empieza a jugar!
 * Stacks (Pilas)
 
 # Link-Video
-[Ir al video :)](https://youtu.be/..)
+[Parte 2 - Backgammon](https://youtu.be/..)
