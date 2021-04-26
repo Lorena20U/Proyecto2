@@ -1,8 +1,10 @@
-# Proyecto 2 - wARLAND ARCADE
+# Proyecto 2 - WARLAND ARCADE
 ```
 Contenido: Risk-Juego de Conquista, Backgammon-Juego clasico
 
-Es una pagina de entrenimiento local, donde puedes elegir el juego que desee sin necesidad de estar conectado a Internet. Las reglas son sencillas, ¡empieza a jugar!
+Es una pagina de entrenimiento local, donde puedes elegir el juego que desee 
+sin necesidad de estar conectado a Internet. 
+Las reglas son sencillas, ¡empieza a jugar!
 
 ```
 

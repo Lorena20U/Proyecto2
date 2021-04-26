@@ -1,9 +1,10 @@
 from flask import Flask, redirect, url_for, request, jsonify
 from jinja2 import Template, Environment, FileSystemLoader
-from met import data, mov_value, mov, guardar
+from met import data, mov_value, mov
 import tablero
 import yaml
 import random
+import cProfile, re
 
 file_loader = FileSystemLoader('templates')
 env = Environment(loader = file_loader)
@@ -629,4 +630,5 @@ def turnos():
 
 
 if __name__ == '__main__':
+    #cProfile.run('re.compile("foo|bar")')
     app.run(host='localhost', port=5000, debug = True)
