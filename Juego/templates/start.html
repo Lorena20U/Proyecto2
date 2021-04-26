@@ -1,0 +1,121 @@
+{% extends "layout.html" %} 
+{% block tit %} Backgammon {% endblock %} 
+{% block enc %} Backgammon {% endblock %}
+
+{% block contenido%}
+
+<div class="container-xl">
+  <div class="card-body">
+    <h5>Reglas</h5>
+    <p class="card-text">
+      Empieza el juego! Para empezar, los jugadores tiran un dado cada uno a la vez. El que saque el número mas alto empieza la partida.
+    </p>
+    <p>Para mover las fichas los jugadores se turnan para tirar los dados y mueven una o varias fichas un determinado numero de casillas. En el caso de que uno de los jugadores saque dables (ej: 4 y 4), se considera tiro doble y debe mover sus fichas como si hubiera tirado 4 dados iguales.
+    </p>
+    <p>Si una casilla esta ocupada por una sola ficha del enemigo, puedes comertela y el otro jugador debe sacarla del bar para seguir moviendo sus fichas, si no tiene moviemiento este jugador pierde su turno.
+    </p>
+    <p>Ganara el jugador que haya sacado sus fichas antes que el contrincante, tambien se puede ganar si el oponente abandona el juego.
+    </p>
+    <br></br>
+    <div class="card">
+  <div class="card-body">
+    <p>↓ Blanco = O | VS | Negro = X ↓</p>
+    <h3>Player 1 | VS | Player 2</h3>
+    <p>Turno = Player {{ player }}</p>
+  </div>
+</div>
+  </div>
+  <div>
+  <table width="60%" class="table-sm table-bordered" style="margin: 0 auto;">
+  <tbody>
+    <tr class="table-success">
+      <td class="text-left">12  | {{ stack12 }}</td>
+      <td class="text-right">{{ stack13 }} | 13</td>
+    </tr>
+    <tr class="table-warning">
+      <td class="text-left">11  | {{ stack11 }}</td>
+      <td class="text-right">{{ stack14 }} | 14</td>
+    </tr>
+    <tr class="table-success">
+      <td class="text-left">10  | {{ stack10 }}</td>
+      <td class="text-right">{{ stack15 }} | 15</td>
+    </tr>
+    <tr class="table-warning">
+      <td class="text-left" >09  | {{ stack9 }}</td>
+      <td class="text-right">{{ stack16 }} | 16</td>
+    </tr>
+    <tr class="table-success">
+      <td class="text-left">08  | {{ stack8 }}</td>
+      <td class="text-right">{{ stack17 }} | 17</td>
+    </tr>
+    <tr class="table-warning">
+      <td class="text-left">07  | {{ stack7 }}</td>
+      <td class="text-right">{{ stack18 }} | 18</td>
+    </tr>
+    <tr>
+      <td colspan="2">BAR</td>
+    </tr>
+    <tr class="table-success">
+      <td class="text-left" >06  | {{ stack6 }}</td>
+      <td class="text-right">{{ stack19 }} | 19</td>
+    </tr>
+    <tr class="table-warning">
+      <td class="text-left">05  | {{ stack5 }}</td>
+      <td class="text-right">{{ stack20 }} | 20</td>
+    </tr>
+    <tr class="table-success">
+      <td class="text-left">04  | {{ stack4 }}</td>
+      <td class="text-right">{{ stack21 }} | 21</td>
+    </tr>
+    <tr class="table-warning">
+      <td class="text-left" >03  | {{ stack3 }}</td>
+      <td class="text-right">{{ stack22 }} | 22</td>
+    </tr>
+    <tr class="table-success">
+      <td class="text-left">02  | {{ stack2 }}</td>
+      <td class="text-right">{{ stack23 }} | 23</td>
+    </tr>
+    <tr class="table-warning">
+      <td class="text-left">01  | {{ stack1 }}</td>
+      <td class="text-right">{{ stack24 }} | 24</td>
+    </tr>
+  </tbody>
+</table>
+<br></br>
+</div>
+
+  <div class="text-center md-3">    
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card w-50 border-success">
+        <img class="card-img-top" height="200" src={{ image_Dados }} alt="Card image cap", title="Dados", class="fotoDados">
+          <div class="card-body">
+            <h5 class="card-title">Dados Jugador A</h5>
+            <p class="card-text">
+              Es tu turno?
+            </p>
+            <a href="#" class="btn btn-primary">Lanzar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card w-50 border-danger">
+        <img class="card-img-top" height="200" src={{ image_D }} alt="Card image cap", title="Dados", class="fotoD">
+          <div class="card-body">
+            <h5 class="card-title">Dados Jugador B</h5>
+            <p class="card-text">
+              Es tu turno?
+            </p>
+            <a href="#" class="btn btn-primary">Lanzar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div>
+  <br></br>
+  <p></p>
+  </div>
+</div>
+{% endblock %}
