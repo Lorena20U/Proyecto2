@@ -142,6 +142,13 @@ stack17.push(O10)
 
 stack18 = Stack(18)
 
+barBlanco = Stack(25)
+homeBlanco = Stack(26)
+barNegro = Stack(27)
+homeNegro = Stack(28)
+turnos = Stack(29)
+turnos.push("1")
+
 Estructura_inicial_ejemplo='''
 12  [O O O O O  ] [  X X X X X] 13
 11  [           ] [           ] 14
@@ -160,20 +167,4 @@ Estructura_inicial_ejemplo='''
 1   [O O        ] [        X X] 24
     -------------|-------------
     [           HOME          ] '''
-#print(Estructura_inicial_ejemplo)
-
-
-''' p = Stack()
-
-print(p.is_empty())
-p.push(4)
-p.push('perro')
-print(p.peek())
-p.push(True)
-print(p.size())
-print(p.is_empty())
-p.push(8.4)
-print(p.pop())
-print(p.pop())
-print(p.size())
-print(p) '''
+#print(Estructura_inicial_ejemplo)S

@@ -94,24 +94,21 @@
 </table>
 <br></br>
 </div>
-
-  <div class="text-center md-3">    
-    <div class="row">
-      <div class="col-sm-6">
-      </div>
-      <div class="col-sm-6">
-        <div class="card w-50 border-danger">
-        <img class="card-img-top" height="200" src={{ image_D }} alt="Card image cap", title="Dados", class="fotoD">
-          <div class="card-body">
-            <h5 class="card-title">DADOS</h5>
-            <p class="card-text">
-              Turno: Jugador {{ player }}
-            </p>
-            <a href="/backgammon/turnos" class="btn btn-primary">Lanzar</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  
+  <div class="text-center md-3">
+    <div class="card-body">
+    <p>↓ Blanco = O | VS | Negro = X ↓</p>
+    <h3>Player 1 | VS | Player 2</h3>
+    <p>Turno = Player {{ player }}</p>
+    <h3>Elija una opcion: </h3>
+    <form action="/backgammon/" method="get">
+      <p><input type = "checkbox" name = "opcion" value = "1"> 1. {{ a1 }}</p>
+      <p><input type = "checkbox" name = "opcion" value = "2"> 2. {{ a2 }}</p>
+      <p><input type = "checkbox" name = "opcion" value = "3"> 3. {{ a3 }}</p>
+      <p><input type = "checkbox" name = "opcion" value = "4"> 4. {{ a4 }}</p>
+      <p><input type="submit" value="submit"> </p>
+    </form>
+  </div>    
   </div>
   </div>
   <div>

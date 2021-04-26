@@ -30,6 +30,6 @@ def mov(d1: int, d2: int):
         opcion = [[1, d2], [2, (d1+d2)], [(d1+d2+d1), d2], [(d1+d1+d2+d2), 0]]
     
     return opcion
-#print(mov(2, 2))
+
 #print(mov(mov_value(), mov_value()))
     
