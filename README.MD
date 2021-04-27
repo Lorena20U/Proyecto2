@@ -1,7 +1,7 @@
 # Proyecto 2 - WARLAND ARCADE
 ```
 
-Es una pagina de entrenimiento local, donde puedes elegir el juego que desee sin necesidad de estar conectado a Internet. 
+Es una pagina de entretenimiento local, donde puedes elegir el juego que desee sin necesidad de estar conectado a Internet. 
 
 Las reglas son sencillas, ¡empieza a jugar!
 
@@ -21,4 +21,4 @@ Las reglas son sencillas, ¡empieza a jugar!
 * Stacks (Pilas)
 
 # Link-Video
-[Parte 2 - Backgammon](https://youtu.be/..)
+[Warland Arcade - Video](https://youtu.be/RM-hwvmAR74)
